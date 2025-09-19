@@ -1,6 +1,7 @@
 package com.cloud.system.service.impl;
 
 import com.cloud.api.system.dto.UserLoginDTO;
+import com.cloud.system.entity.Role;
 import com.cloud.system.entity.User;
 import com.cloud.common.result.Result;
 import com.cloud.system.mapper.UserMapper;
@@ -68,30 +69,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (user == null)
             return null;
 
-        // 👇 1. 获取角色 codes
-        List<String> roleCodes = user.getRoles().stream()
-                .map(SysRole::getRoleCode)
-                .collect(Collectors.toList());
+        List<Role> roles = baseMapper.selectRoleCodesByUserId(user.getId());
+        List<String> roleCodes = roles.stream().map(Role::getRoleCode).collect(Collectors.toList());
+        List<Long> idList = roles.stream().map(Role::getId).collect(Collectors.toList());
+        List<String> menuList = baseMapper.selectPermissionByRoleIds(idList);
 
-        // 👇 2. 获取权限 codes（JOIN 查询）
-        Set<String> permissionCodes = new HashSet<>();
-        for (SysRole role : user.getRoles()) {
-            List<SysMenu> menus = menuRepository.findMenusByRoleId(role.getId());
-            for (SysMenu menu : menus) {
-                if ("3".equals(menu.getMenuType())) { // 按钮/权限点
-                    permissionCodes.add(menu.getMenuCode());
-                }
-            }
-        }
-
-        // 👇 3. 构造 DTO（不是直接转 SecurityUser！）
         UserLoginDTO dto = new UserLoginDTO();
         dto.setId(user.getId());
         dto.setUsername(user.getUsername());
         dto.setPassword(user.getPassword());
         dto.setRoles(roleCodes);
-        dto.setPermissions(new ArrayList<>(permissionCodes));
-        dto.setEnabled(user.getEnabled() != null && user.getEnabled());
+        dto.setPermissions(menuList);
+        dto.setStatus(user.getStatus());
 
         return dto;
     }

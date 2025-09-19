@@ -2,6 +2,7 @@ package com.cloud.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.cloud.api.system.dto.UserLoginDTO;
+import com.cloud.system.entity.Role;
 import com.cloud.system.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -16,7 +17,7 @@ public interface UserMapper extends BaseMapper<User> {
 
     UserLoginDTO selectByName(@Param("username") String username);
 
-    List<String> selectRoleCodesByUserId(@Param("userId") Long userId);
+    List<Role> selectRoleCodesByUserId(@Param("userId") Long userId);
 
-    List<String> selectPermissionByRoleCodes(@Param("roleCodes") List<String> userId);
+    List<String> selectPermissionByRoleIds(@Param("roleIds") List<Long> roleIds);
 }
