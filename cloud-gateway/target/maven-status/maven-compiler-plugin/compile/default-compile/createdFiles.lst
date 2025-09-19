@@ -1,0 +1,4 @@
+com\cloud\gateway\config\GatewayExcludeConfig.class
+com\cloud\gateway\filter\AuthGlobalFilter.class
+com\cloud\gateway\config\GatewayConfig.class
+com\cloud\gateway\GatewayApplication.class

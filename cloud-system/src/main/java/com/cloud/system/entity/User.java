@@ -1,14 +1,18 @@
 package com.cloud.system.entity;
 
-import com.cloud.common.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.cloud.common.entity.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 用户实体
  */
+@EqualsAndHashCode(callSuper = true)
 @Schema(description = "用户实体")
 @TableName("sys_user")
+@Data
 public class User extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
@@ -34,59 +38,4 @@ public class User extends BaseEntity {
     @Schema(description = "头像")
     private String avatar;
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
 }

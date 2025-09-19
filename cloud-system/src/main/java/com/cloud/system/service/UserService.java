@@ -1,7 +1,8 @@
 package com.cloud.system.service;
 
-import com.cloud.common.result.Result;
+import com.cloud.api.system.dto.UserLoginDTO;
 import com.cloud.system.entity.User;
+import com.cloud.common.result.Result;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -23,4 +24,6 @@ public interface UserService extends IService<User> {
      * 修改用户状态
      */
     Result<Void> updateStatus(Long userId, Integer status);
+
+    UserLoginDTO loadUserByUsername(String username);
 }

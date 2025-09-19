@@ -1,13 +1,13 @@
 package com.cloud.auth.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.cloud.auth.entity.AuthUser;
+import com.cloud.api.system.dto.UserCreateDTO;
+import com.cloud.api.system.dto.UserInfoDTO;
 import com.cloud.common.result.Result;
 
 /**
  * 认证用户服务接口
  */
-public interface AuthUserService extends IService<AuthUser> {
+public interface AuthUserService {
 
     /**
      * 用户登录
@@ -17,12 +17,12 @@ public interface AuthUserService extends IService<AuthUser> {
     /**
      * 用户注册
      */
-    Result<String> register(AuthUser authUser);
+    Result<String> register(UserCreateDTO authUser);
 
     /**
      * 根据用户名查询用户
      */
-    AuthUser getByUsername(String username);
+    UserInfoDTO getByUsername(String username);
 
     /**
      * 刷新令牌
