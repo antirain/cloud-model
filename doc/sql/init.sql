@@ -73,6 +73,8 @@ CREATE TABLE IF NOT EXISTS `sys_user_role` (
     `role_id` bigint NOT NULL COMMENT '角色ID',
     `create_by` varchar(50) DEFAULT NULL COMMENT '创建人',
     `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_by` varchar(50) DEFAULT NULL COMMENT '更新人',
+    `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (`id`),
     UNIQUE KEY `uk_user_role` (`user_id`, `role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户角色关联表';
@@ -84,6 +86,8 @@ CREATE TABLE IF NOT EXISTS `sys_role_menu` (
     `menu_id` bigint NOT NULL COMMENT '菜单ID',
     `create_by` varchar(50) DEFAULT NULL COMMENT '创建人',
     `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_by` varchar(50) DEFAULT NULL COMMENT '更新人',
+    `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (`id`),
     UNIQUE KEY `uk_role_menu` (`role_id`, `menu_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='角色菜单关联表';

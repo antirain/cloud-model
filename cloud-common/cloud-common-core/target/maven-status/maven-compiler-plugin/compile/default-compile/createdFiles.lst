@@ -1,0 +1,4 @@
+com\cloud\common\exception\BusinessException.class
+com\cloud\common\exception\GlobalExceptionHandler.class
+com\cloud\common\result\Result.class
+com\cloud\common\result\ResultCode.class

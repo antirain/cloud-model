@@ -17,12 +17,6 @@
     <description>系统管理服务</description>
 
     <dependencies>
-        <!-- Spring Boot Web -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
         <!-- Nacos Discovery -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
@@ -35,17 +29,35 @@
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
 
-        <!-- Common -->
+        <!-- 新的公共模块 -->
         <dependency>
             <groupId>com.cloud</groupId>
-            <artifactId>cloud-common</artifactId>
+            <artifactId>cloud-common-core</artifactId>
             <version>1.0.0</version>
         </dependency>
-
-        <!-- Knife4j -->
         <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+            <groupId>com.cloud</groupId>
+            <artifactId>cloud-common-datasource</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.cloud</groupId>
+            <artifactId>cloud-common-security</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.cloud</groupId>
+            <artifactId>cloud-system-api</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <!-- MapStruct -->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
         </dependency>
     </dependencies>
 

@@ -1,0 +1,29 @@
+server:
+  port: 9002
+
+spring:
+  application:
+    name: cloud-auth
+  config:
+    import: optional:nacos:cloud-auth.yaml
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        namespace: public
+        group: DEFAULT_GROUP
+      config:
+        server-addr: localhost:8848
+        namespace: public
+        group: DEFAULT_GROUP
+        file-extension: yaml
+        refresh-enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always

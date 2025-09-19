@@ -1,15 +1,18 @@
 package com.cloud.auth.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.cloud.auth.entity.AuthUser;
-import com.cloud.auth.mapper.AuthUserMapper;
+import com.cloud.api.system.client.SystemUserClient;
+import com.cloud.api.system.dto.UserCreateDTO;
+import com.cloud.api.system.dto.UserInfoDTO;
 import com.cloud.auth.service.AuthUserService;
-import com.cloud.common.exception.BusinessException;
+import com.cloud.common.entity.SecurityUser;
 import com.cloud.common.result.Result;
 import com.cloud.common.result.ResultCode;
-import com.cloud.common.utils.JwtUtils;
+import com.cloud.common.util.SecurityUtils;
+import com.cloud.common.util.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,79 +23,80 @@ import java.util.Map;
  * 认证用户服务实现类
  */
 @Service
-public class AuthUserServiceImpl extends ServiceImpl<AuthUserMapper, AuthUser> implements AuthUserService {
+public class AuthUserServiceImpl implements AuthUserService {
+
 
     @Autowired
-    private AuthUserMapper authUserMapper;
-
-    @Autowired
-    private JwtUtils jwtUtils;
+    private JwtTokenProvider jwtUtil;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private SystemUserClient systemUserClient;
+
+    @Autowired
+    private SecurityUtils securityUtils;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
     @Override
     public Result<String> login(String username, String password) {
-        AuthUser user = getByUsername(username);
-        if (user == null) {
-            return Result.error(ResultCode.USER_NOT_FOUND);
-        }
-
-        if (user.getStatus() == 0) {
-            return Result.error(ResultCode.USER_DISABLED);
-        }
-
-        if (!passwordEncoder.matches(password, user.getPassword())) {
-            return Result.error(ResultCode.PASSWORD_ERROR);
-        }
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(username, password)
+        );
+        SecurityUser userDetails = (SecurityUser) authentication.getPrincipal();
 
         Map<String, Object> claims = new HashMap<>();
-        claims.put("userId", user.getId());
-        claims.put("username", user.getUsername());
-        claims.put("roleId", user.getRoleId());
+        claims.put("userId", userDetails.getId());
+        claims.put("username", userDetails.getUsername());
+        claims.put("roleId", userDetails.getRoles());
 
-        String token = jwtUtils.generateToken(username, claims);
+        String token = jwtUtil.generateToken(username, claims);
         return Result.success(token);
     }
 
     @Override
-    public Result<String> register(AuthUser authUser) {
+    public Result<String> register(UserCreateDTO authUser) {
         if (getByUsername(authUser.getUsername()) != null) {
-            return Result.error(ResultCode.USER_EXIST);
+            return Result.error(ResultCode.DATA_ALREADY_EXISTS);
         }
 
         authUser.setPassword(passwordEncoder.encode(authUser.getPassword()));
-        authUser.setStatus(1);
-        save(authUser);
-
+        systemUserClient.createUser(authUser);
         return Result.success("注册成功");
     }
 
     @Override
-    public AuthUser getByUsername(String username) {
-        LambdaQueryWrapper<AuthUser> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(AuthUser::getUsername, username);
-        return getOne(wrapper);
+    public UserInfoDTO getByUsername(String username) {
+        Result<UserInfoDTO> authUserByUsername = systemUserClient.getAuthUserByUsername(username);
+        if (authUserByUsername.getCode() != 200) {
+            return null;
+        }
+
+        return authUserByUsername.getData();
     }
 
     @Override
     public Result<String> refreshToken(String token) {
-        if (!jwtUtils.validateToken(token)) {
-            return Result.error(ResultCode.TOKEN_INVALID);
+        String subject = securityUtils.getCurrentUsername();
+        if (!jwtUtil.validateToken(token,subject)) {
+            return Result.error(ResultCode.DATA_VALIDATION_FAILED);
         }
 
-        String username = jwtUtils.getUsernameFromToken(token);
-        AuthUser user = getByUsername(username);
+        String username = jwtUtil.getUsernameFromToken(token);
+        UserInfoDTO user = getByUsername(username);
         if (user == null || user.getStatus() == 0) {
-            return Result.error(ResultCode.USER_NOT_FOUND);
+            return Result.error(ResultCode.DATA_NOT_FOUND);
         }
 
         Map<String, Object> claims = new HashMap<>();
         claims.put("userId", user.getId());
         claims.put("username", user.getUsername());
-        claims.put("roleId", user.getRoleId());
+//        claims.put("roleId", user.getRoleId());
 
-        String newToken = jwtUtils.generateToken(username, claims);
+        String newToken = jwtUtil.generateToken(username, claims);
         return Result.success(newToken);
     }
 
