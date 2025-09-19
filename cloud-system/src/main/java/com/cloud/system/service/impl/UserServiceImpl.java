@@ -70,9 +70,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             return null;
 
         List<Role> roles = baseMapper.selectRoleCodesByUserId(user.getId());
-        List<String> roleCodes = roles.stream().map(Role::getRoleCode).collect(Collectors.toList());
-        List<Long> idList = roles.stream().map(Role::getId).collect(Collectors.toList());
-        List<String> menuList = baseMapper.selectPermissionByRoleIds(idList);
+        List<String> roleCodes = new ArrayList<>();
+        List<Long> idList = new ArrayList<>();
+        if (roles != null && !roles.isEmpty()) {
+            roleCodes = roles.stream().map(Role::getRoleCode).collect(Collectors.toList());
+            idList = roles.stream().map(Role::getId).collect(Collectors.toList());
+        }
+
+        List<String> menuList = new ArrayList<>();
+        if (!idList.isEmpty()) {
+            menuList = baseMapper.selectPermissionByRoleIds(idList);
+        }
 
         UserLoginDTO dto = new UserLoginDTO();
         dto.setId(user.getId());

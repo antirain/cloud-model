@@ -1,13 +1,7 @@
-com\cloud\auth\mapper\OAuthClientMapper.class
-com\cloud\auth\entity\AuthUser.class
-com\cloud\auth\service\impl\AuthUserServiceImpl.class
-com\cloud\auth\AuthApplication.class
-com\cloud\auth\controller\TokenController.class
-com\cloud\auth\mapper\AuthUserMapper.class
-com\cloud\auth\entity\OAuthClient.class
-com\cloud\auth\service\impl\OAuthClientServiceImpl.class
 com\cloud\auth\service\AuthUserService.class
+com\cloud\auth\service\impl\AuthUserServiceImpl.class
+com\cloud\auth\service\impl\CustomUserDetailsService.class
+com\cloud\auth\AuthApplication.class
 com\cloud\auth\config\SecurityConfig.class
-com\cloud\auth\service\OAuthClientService.class
 com\cloud\auth\controller\AuthController.class
 com\cloud\auth\util\SecurityUtilsImpl.class

@@ -16,6 +16,15 @@
     <description>公共安全模块 - 包含JWT工具、安全工具接口等安全相关功能</description>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+            <scope>provided</scope> <!-- 👈 编译时需要，运行时由具体服务提供 -->
+        </dependency>
         <!-- 依赖公共核心模块 -->
         <dependency>
             <groupId>com.cloud</groupId>
@@ -26,16 +35,6 @@
             <groupId>com.cloud</groupId>
             <artifactId>cloud-system-api</artifactId>
             <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-core</artifactId>
-            <scope>provided</scope> <!-- 由具体服务提供完整 Security 环境 -->
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-web</artifactId>
-            <scope>provided</scope>
         </dependency>
         <!-- JWT -->
         <dependency>

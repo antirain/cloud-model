@@ -30,8 +30,8 @@ public class AuthController {
     @PostMapping("/login")
     @Operation(summary = "用户登录", description = "用户登录接口")
     public Result<String> login(
-            @Parameter(description = "用户名") @RequestParam @NotBlank(message = "用户名不能为空") String username,
-            @Parameter(description = "密码") @RequestParam @NotBlank(message = "密码不能为空") String password) {
+            @Parameter(description = "用户名") @RequestParam("username") @NotBlank(message = "用户名不能为空") String username,
+            @Parameter(description = "密码") @RequestParam("password") @NotBlank(message = "密码不能为空") String password) {
         return authUserService.login(username, password);
     }
 
@@ -61,7 +61,7 @@ public class AuthController {
     @GetMapping("/info")
     @Operation(summary = "获取用户信息", description = "根据用户名获取用户信息")
     public Result<UserInfoDTO> getUserInfo(
-            @Parameter(description = "用户名") @RequestParam @NotBlank(message = "用户名不能为空") String username) {
+            @Parameter(description = "用户名") @RequestParam("username") @NotBlank(message = "用户名不能为空") String username) {
         UserInfoDTO user = authUserService.getByUsername(username);
         if (user != null) {
             // 移除密码信息

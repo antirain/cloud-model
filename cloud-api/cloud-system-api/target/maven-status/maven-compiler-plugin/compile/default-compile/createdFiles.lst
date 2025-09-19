@@ -1,6 +1,7 @@
 com\cloud\api\system\client\fallback\SystemUserClientFallbackFactory$1.class
-com\cloud\api\system\vo\UserVO.class
-com\cloud\api\system\client\fallback\SystemUserClientFallbackFactory.class
+com\cloud\api\system\dto\UserLoginDTO.class
 com\cloud\api\system\client\SystemUserClient.class
-com\cloud\api\system\dto\UserAuthInfoDTO.class
+com\cloud\api\system\dto\UserUpdateDTO.class
+com\cloud\api\system\client\fallback\SystemUserClientFallbackFactory.class
+com\cloud\api\system\dto\UserInfoDTO.class
 com\cloud\api\system\dto\UserCreateDTO.class

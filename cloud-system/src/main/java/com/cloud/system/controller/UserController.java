@@ -35,13 +35,15 @@ public class UserController {
     @Autowired
     private UserRoleService userRoleService;
 
+    @Autowired
+    private UserConvertor userConvertor;
     @GetMapping("/page")
     @Operation(summary = "分页查询用户")
     public Result<IPage<UserVO>> page(
-            @Parameter(description = "页码") @RequestParam(defaultValue = "1") Integer pageNo,
-            @Parameter(description = "每页条数") @RequestParam(defaultValue = "10") Integer pageSize,
-            @Parameter(description = "用户名") @RequestParam(required = false) String username,
-            @Parameter(description = "状态") @RequestParam(required = false) Integer status) {
+            @Parameter(description = "页码") @RequestParam(name = "pageNo",defaultValue = "1") Integer pageNo,
+            @Parameter(description = "每页条数") @RequestParam(name = "pageSize",defaultValue = "10") Integer pageSize,
+            @Parameter(description = "用户名") @RequestParam(name = "username",required = false) String username,
+            @Parameter(description = "状态") @RequestParam(name = "status",required = false) Integer status) {
 
         Page<User> page = new Page<>(pageNo, pageSize);
         LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
@@ -57,7 +59,7 @@ public class UserController {
         IPage<User> userPage = userService.page(page, wrapper);
         
         // 将User实体列表转换为UserVO列表
-        IPage<UserVO> userVOPage = userPage.convert(UserConvertor.INSTANCE::toUserVO);
+        IPage<UserVO> userVOPage = userPage.convert(userConvertor::toUserVO);
         return Result.success(userVOPage);
     }
 
@@ -69,7 +71,7 @@ public class UserController {
             return Result.error("用户不存在");
         }
         // 将User实体转换为UserVO
-        UserVO userVO = UserConvertor.INSTANCE.toUserVO(user);
+        UserVO userVO = userConvertor.toUserVO(user);
         return Result.success(userVO);
     }
 
@@ -98,7 +100,7 @@ public class UserController {
         if (userUpdateDTO.getId() == null) {
             return Result.error("用户ID不能为空");
         }
-        User user = UserConvertor.INSTANCE.toUser(userUpdateDTO);
+        User user = userConvertor.toUser(userUpdateDTO);
         boolean updated = userService.updateById(user);
         return updated ? Result.success(true) : Result.error("修改失败");
     }
@@ -120,14 +122,14 @@ public class UserController {
 
     // 以下是Feign客户端需要的接口实现
 
-    @GetMapping("/info")
+    @GetMapping("/info/{username}")
     @Operation(summary = "根据用户名获取用户认证信息")
-    public Result<UserInfoDTO> getAuthUserByUsername(@RequestParam("username") String username) {
+    public Result<UserInfoDTO> getAuthUserByUsername(@PathVariable("username") String username) {
         User user = userService.getByUsername(username);
         if (user == null) {
             return Result.error("用户不存在");
         }
-        UserInfoDTO userInfoDTO = UserConvertor.INSTANCE.toUserInfoDTO(user);
+        UserInfoDTO userInfoDTO = userConvertor.toUserInfoDTO(user);
         return Result.success(userInfoDTO);
     }
 
@@ -139,7 +141,7 @@ public class UserController {
             return Result.error("用户不存在");
         }
 
-        UserInfoDTO userInfoDTO = UserConvertor.INSTANCE.toUserInfoDTO(user);
+        UserInfoDTO userInfoDTO = userConvertor.toUserInfoDTO(user);
         return Result.success(userInfoDTO);
     }
 
@@ -175,7 +177,7 @@ public class UserController {
         return Result.success(user != null);
     }
 
-    @GetMapping("/system/user/load-by-username")
+    @GetMapping("/load-by-username")
     public Result<UserLoginDTO> loadUserByUsername(@RequestParam("username") String username){
         return Result.success(userService.loadUserByUsername(username));
     }

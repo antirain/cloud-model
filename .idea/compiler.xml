@@ -7,13 +7,6 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="cloud-system" />
-        <module name="cloud-common-datasource" />
-        <module name="cloud-common-security" />
-        <module name="cloud-common-core" />
-        <module name="cloud-business" />
-        <module name="cloud-auth" />
-        <module name="cloud-gateway" />
       </profile>
       <profile name="Annotation profile for cloud-model" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -21,10 +14,17 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$PROJECT_DIR$/../../apache-maven-3.9.11/repository/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
-          <entry name="$PROJECT_DIR$/../../apache-maven-3.9.11/repository/org/mapstruct/mapstruct-processor/1.5.3.Final/mapstruct-processor-1.5.3.Final.jar" />
-          <entry name="$PROJECT_DIR$/../../apache-maven-3.9.11/repository/org/mapstruct/mapstruct/1.5.3.Final/mapstruct-1.5.3.Final.jar" />
+          <entry name="$PROJECT_DIR$/../../apache-maven-3.9.11/repository/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
+          <entry name="$PROJECT_DIR$/../../apache-maven-3.9.11/repository/org/mapstruct/mapstruct/1.5.5.Final/mapstruct-1.5.5.Final.jar" />
         </processorPath>
+        <module name="cloud-system" />
+        <module name="cloud-common-datasource" />
+        <module name="cloud-common-security" />
+        <module name="cloud-common-core" />
         <module name="cloud-system-api" />
+        <module name="cloud-business" />
+        <module name="cloud-auth" />
+        <module name="cloud-gateway" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

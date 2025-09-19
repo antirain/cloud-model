@@ -3,7 +3,7 @@ package com.cloud.auth.service.impl;
 
 import com.cloud.api.system.client.SystemUserClient;
 import com.cloud.api.system.dto.UserLoginDTO;
-import com.cloud.common.filter.SecurityUser;
+import com.cloud.common.entity.SecurityUser;
 import com.cloud.common.result.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,10 +1,13 @@
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\service\impl\RoleServiceImpl.java
+D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\entity\Menu.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\controller\RoleController.java
+D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\entity\Role.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\constant\SystemConstants.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\service\MenuService.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\controller\MenuController.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\vo\UserRoleVO.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\mapper\RoleMenuMapper.java
+D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\entity\UserRole.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\service\RoleService.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\config\SystemConfig.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\mapper\MenuMapper.java
@@ -20,10 +23,12 @@ D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\servi
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\util\UserConvertor.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\SystemApplication.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\service\impl\UserRoleServiceImpl.java
+D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\entity\User.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\mapper\UserMapper.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\util\MenuConvertor.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\mapper\UserRoleMapper.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\service\UserService.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\mapper\RoleMapper.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\controller\TestController.java
+D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\entity\RoleMenu.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\vo\UserVO.java

@@ -1,12 +1,10 @@
 package com.cloud.system.util;
 
 import com.cloud.api.system.dto.UserInfoDTO;
-import com.cloud.api.system.dto.UserLoginDTO;
 import com.cloud.api.system.dto.UserUpdateDTO;
 import com.cloud.system.entity.User;
 import com.cloud.system.vo.UserVO;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
@@ -14,11 +12,9 @@ import java.util.List;
  * 用户对象转换工具类
  * 用于在User实体对象和UserVO视图对象之间进行转换
  */
-@Mapper
+@Mapper(componentModel = "spring")
 public interface UserConvertor {
-    
-    UserConvertor INSTANCE = Mappers.getMapper(UserConvertor.class);
-    
+
     /**
      * 将User实体转换为UserVO
      * @param user 用户实体

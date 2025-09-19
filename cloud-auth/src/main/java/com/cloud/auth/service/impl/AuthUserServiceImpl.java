@@ -4,10 +4,15 @@ import com.cloud.api.system.client.SystemUserClient;
 import com.cloud.api.system.dto.UserCreateDTO;
 import com.cloud.api.system.dto.UserInfoDTO;
 import com.cloud.auth.service.AuthUserService;
+import com.cloud.common.entity.SecurityUser;
 import com.cloud.common.result.Result;
 import com.cloud.common.result.ResultCode;
-import com.cloud.common.utils.JwtUtil;
+import com.cloud.common.util.SecurityUtils;
+import com.cloud.common.util.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +27,7 @@ public class AuthUserServiceImpl implements AuthUserService {
 
 
     @Autowired
-    private JwtUtil jwtUtil;
+    private JwtTokenProvider jwtUtil;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -30,25 +35,23 @@ public class AuthUserServiceImpl implements AuthUserService {
     @Autowired
     private SystemUserClient systemUserClient;
 
+    @Autowired
+    private SecurityUtils securityUtils;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
     @Override
     public Result<String> login(String username, String password) {
-        UserInfoDTO user = getByUsername(username);
-        if (user == null) {
-            return Result.error(ResultCode.DATA_NOT_FOUND);
-        }
-
-        if (user.getStatus() == 0) {
-            return Result.error(ResultCode.OPERATION_NOT_ALLOWED);
-        }
-
-        if (!passwordEncoder.matches(password, user.getPassword())) {
-            return Result.error(ResultCode.DATA_VALIDATION_FAILED);
-        }
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(username, password)
+        );
+        SecurityUser userDetails = (SecurityUser) authentication.getPrincipal();
 
         Map<String, Object> claims = new HashMap<>();
-        claims.put("userId", user.getId());
-        claims.put("username", user.getUsername());
-//        claims.put("roleId", user.getRoleId());
+        claims.put("userId", userDetails.getId());
+        claims.put("username", userDetails.getUsername());
+        claims.put("roleId", userDetails.getRoles());
 
         String token = jwtUtil.generateToken(username, claims);
         return Result.success(token);
@@ -77,11 +80,12 @@ public class AuthUserServiceImpl implements AuthUserService {
 
     @Override
     public Result<String> refreshToken(String token) {
-        if (!jwtUtil.validateToken(token)) {
+        String subject = securityUtils.getCurrentUsername();
+        if (!jwtUtil.validateToken(token,subject)) {
             return Result.error(ResultCode.DATA_VALIDATION_FAILED);
         }
 
-        String username = jwtUtil.extractSubject(token);
+        String username = jwtUtil.getUsernameFromToken(token);
         UserInfoDTO user = getByUsername(username);
         if (user == null || user.getStatus() == 0) {
             return Result.error(ResultCode.DATA_NOT_FOUND);

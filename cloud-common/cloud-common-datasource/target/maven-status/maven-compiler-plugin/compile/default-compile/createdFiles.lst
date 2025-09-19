@@ -1,7 +1,2 @@
-com\cloud\common\entity\UserRole.class
-com\cloud\common\entity\RoleMenu.class
 com\cloud\common\config\MybatisPlusConfig.class
-com\cloud\common\entity\User.class
-com\cloud\common\entity\Role.class
 com\cloud\common\entity\BaseEntity.class
-com\cloud\common\entity\Menu.class

@@ -45,11 +45,19 @@
             <artifactId>cloud-common-security</artifactId>
             <version>1.0.0</version>
         </dependency>
-
         <dependency>
             <groupId>com.cloud</groupId>
             <artifactId>cloud-system-api</artifactId>
             <version>1.0.0</version>
+        </dependency>
+        <!-- MapStruct -->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
         </dependency>
     </dependencies>
 

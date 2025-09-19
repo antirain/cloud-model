@@ -1,6 +1,6 @@
 package com.cloud.auth.util;
 
-import com.cloud.api.system.dto.UserInfoDTO;
+import com.cloud.common.entity.SecurityUser;
 import com.cloud.common.util.SecurityUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,8 +20,8 @@ public class SecurityUtilsImpl implements SecurityUtils {
             Object principal = authentication.getPrincipal();
             // 这里需要根据实际的用户详情实现来获取用户ID
             // 假设你的UserDetails实现类中有getId()方法
-            if (principal instanceof UserInfoDTO) {
-                return ((UserInfoDTO) principal).getId();
+            if (principal instanceof SecurityUser) {
+                return ((SecurityUser) principal).getId();
             }
         }
         return null;

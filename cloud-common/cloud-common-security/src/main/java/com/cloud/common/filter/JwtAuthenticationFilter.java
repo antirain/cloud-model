@@ -1,6 +1,6 @@
 package com.cloud.common.filter;
 
-import com.cloud.common.utils.JwtUtil;
+import com.cloud.common.util.JwtTokenProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,7 +22,7 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
-    private JwtUtil jwtUtil;
+    private JwtTokenProvider jwtUtil;
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -41,7 +41,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             jwt = authorizationHeader.substring(7);
             try {
-                username = jwtUtil.extractSubject(jwt);
+                username = jwtUtil.getUsernameFromToken(jwt);
             } catch (Exception e) {
                 log.warn("Invalid JWT Token: {}", e.getMessage(), e);
             }
