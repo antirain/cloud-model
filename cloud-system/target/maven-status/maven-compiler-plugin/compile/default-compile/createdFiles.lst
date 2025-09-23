@@ -9,6 +9,7 @@ com\cloud\system\controller\TestController.class
 com\cloud\system\vo\RoleMenuVO.class
 com\cloud\system\mapper\RoleMapper.class
 com\cloud\system\service\UserService.class
+com\cloud\system\util\UserConvertorImpl.class
 com\cloud\system\mapper\RoleMenuMapper.class
 com\cloud\system\service\impl\UserServiceImpl.class
 com\cloud\system\util\UserConvertor.class
@@ -28,11 +29,11 @@ com\cloud\system\mapper\UserMapper.class
 com\cloud\system\entity\RoleMenu.class
 com\cloud\system\service\RoleService.class
 com\cloud\system\service\impl\RoleServiceImpl.class
-com\cloud\system\config\SystemConfig.class
 com\cloud\system\constant\SystemConstants.class
 com\cloud\system\dto\MenuTree.class
 com\cloud\system\service\UserRoleService.class
 com\cloud\system\service\impl\RoleMenuServiceImpl.class
 com\cloud\system\service\MenuService.class
+com\cloud\system\config\SecurityConfig.class
 com\cloud\system\controller\MenuController.class
 com\cloud\system\vo\MenuVO.class

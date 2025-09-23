@@ -16,6 +16,12 @@
     <file url="file://$PROJECT_DIR$/cloud-common/cloud-common-datasource/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud-common/cloud-common-datasource/src/main/java/com/cloud/common/entity/BaseEntity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud-common/cloud-common-datasource/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cloud-common/cloud-common-security-core/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cloud-common/cloud-common-security-core/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cloud-common/cloud-common-security-webflux/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cloud-common/cloud-common-security-webflux/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cloud-common/cloud-common-security-webmvc/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cloud-common/cloud-common-security-webmvc/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud-common/cloud-common-security/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud-common/cloud-common-security/src/main/java/com/cloud/common/utils/JwtUtil.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud-common/cloud-common-security/src/main/resources" charset="UTF-8" />

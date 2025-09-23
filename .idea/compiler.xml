@@ -43,6 +43,9 @@
       <module name="cloud-common-core" options="-Xlint:deprecation -Xlint:unchecked" />
       <module name="cloud-common-datasource" options="-Xlint:deprecation -Xlint:unchecked" />
       <module name="cloud-common-security" options="-Xlint:deprecation -Xlint:unchecked" />
+      <module name="cloud-common-security-core" options="-Xlint:deprecation -Xlint:unchecked" />
+      <module name="cloud-common-security-webflux" options="-Xlint:deprecation -Xlint:unchecked" />
+      <module name="cloud-common-security-webmvc" options="-Xlint:deprecation -Xlint:unchecked" />
       <module name="cloud-feign-client" options="-Xlint:deprecation -Xlint:unchecked" />
       <module name="cloud-gateway" options="-Xlint:deprecation -Xlint:unchecked" />
       <module name="cloud-model" options="-Xlint:deprecation -Xlint:unchecked" />

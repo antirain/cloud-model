@@ -1,5 +1,6 @@
 package com.cloud.system.controller;
 
+import com.cloud.system.dto.MenuTree;
 import com.cloud.system.entity.Menu;
 import com.cloud.system.service.MenuService;
 import com.cloud.common.result.Result;
@@ -24,7 +25,7 @@ public class MenuController {
 
     @GetMapping("/tree")
     @Operation(summary = "获取菜单树", description = "获取所有菜单的树形结构")
-    public Result<List<Menu>> getMenuTree() {
+    public Result<List<MenuTree>> getMenuTree() {
         return menuService.getMenuTree();
     }
 
@@ -43,7 +44,7 @@ public class MenuController {
 
     @GetMapping("/user/{userId}")
     @Operation(summary = "获取用户菜单", description = "根据用户ID获取用户菜单列表")
-    public Result<List<Menu>> getUserMenus(
+    public Result<List<MenuTree>> getUserMenus(
             @Parameter(description = "用户ID") @PathVariable Long userId) {
         return menuService.getUserMenus(userId);
     }

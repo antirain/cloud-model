@@ -2,6 +2,7 @@ package com.cloud.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.cloud.system.dto.MenuTree;
 import com.cloud.system.entity.Menu;
 import com.cloud.system.entity.UserRole;
 import com.cloud.system.mapper.MenuMapper;
@@ -9,6 +10,7 @@ import com.cloud.system.mapper.UserRoleMapper;
 import com.cloud.system.service.MenuService;
 import com.cloud.system.service.RoleMenuService;
 import com.cloud.common.result.Result;
+import com.cloud.system.util.MenuConvertor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,17 +53,16 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     }
 
     @Override
-    public Result<List<Menu>> getMenuTree() {
+    public Result<List<MenuTree>> getMenuTree() {
         List<Menu> allMenus = menuMapper.selectList(
             new LambdaQueryWrapper<Menu>().eq(Menu::getStatus, 1)
         );
-        
-        List<Menu> tree = buildMenuTree(allMenus, 0L);
-        return Result.success(tree);
+        List<MenuTree> menuTrees = MenuConvertor.toTree(allMenus);
+        return Result.success(menuTrees);
     }
 
     @Override
-    public Result<List<Menu>> getUserMenus(Long userId) {
+    public Result<List<MenuTree>> getUserMenus(Long userId) {
         // 获取用户角色
         List<UserRole> userRoles = userRoleMapper.selectList(
             new LambdaQueryWrapper<UserRole>().eq(UserRole::getUserId, userId)
@@ -73,7 +74,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 
         List<Long> roleIds = userRoles.stream()
                 .map(UserRole::getRoleId)
-                .collect(Collectors.toList());
+                .toList();
 
         // 获取角色对应的菜单ID
         List<Long> menuIds = roleMenuService.getMenuIdsByRoleId(roleIds.get(0));
@@ -88,9 +89,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
             return Result.success(List.of());
         }
 
-        List<Menu> menus = menuMapper.selectBatchIds(menuIds);
-        List<Menu> tree = buildMenuTree(menus, 0L);
-        return Result.success(tree);
+        List<Menu> menus = menuMapper.selectByIds(menuIds);
+        List<MenuTree> menuTrees = MenuConvertor.toTree(menus);
+        return Result.success(menuTrees);
     }
 
     @Override
@@ -99,19 +100,5 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
             new LambdaQueryWrapper<Menu>().eq(Menu::getStatus, 1)
         );
         return Result.success(menus);
-    }
-
-    /**
-     * 构建菜单树
-     */
-    private List<Menu> buildMenuTree(List<Menu> menus, Long parentId) {
-        return menus.stream()
-                .filter(menu -> Objects.equals(menu.getParentId(), parentId))
-                .peek(menu -> {
-                    List<Menu> children = buildMenuTree(menus, menu.getId());
-                    menu.setChildren(children);
-                })
-                .sorted(Comparator.comparing(Menu::getSort))
-                .collect(Collectors.toList());
     }
 }

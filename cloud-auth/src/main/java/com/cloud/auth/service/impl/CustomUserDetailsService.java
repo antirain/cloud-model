@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private SystemUserClient systemUserClient; // ← 调用 user-service
+    private SystemUserClient systemUserClient;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

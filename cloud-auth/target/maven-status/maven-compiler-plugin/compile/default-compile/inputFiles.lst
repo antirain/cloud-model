@@ -1,10 +1,11 @@
-D:\downloadProject\cloud-model\cloud-auth\src\main\java\com\cloud\auth\config\SecurityConfig.java
 D:\downloadProject\cloud-model\cloud-auth\src\main\java\com\cloud\auth\util\SecurityUtilsImpl.java
 D:\downloadProject\cloud-model\cloud-auth\src\main\java\com\cloud\auth\service\AuthUserService.java
 D:\downloadProject\cloud-model\cloud-auth\src\main\java\com\cloud\auth\service\OAuthClientService.java
 D:\downloadProject\cloud-model\cloud-auth\src\main\java\com\cloud\auth\controller\TokenController.java
+D:\downloadProject\cloud-model\cloud-auth\src\main\java\com\cloud\auth\config\AuthSecurityConfig.java
 D:\downloadProject\cloud-model\cloud-auth\src\main\java\com\cloud\auth\service\impl\CustomUserDetailsService.java
 D:\downloadProject\cloud-model\cloud-auth\src\main\java\com\cloud\auth\service\impl\OAuthClientServiceImpl.java
 D:\downloadProject\cloud-model\cloud-auth\src\main\java\com\cloud\auth\AuthApplication.java
 D:\downloadProject\cloud-model\cloud-auth\src\main\java\com\cloud\auth\service\impl\AuthUserServiceImpl.java
 D:\downloadProject\cloud-model\cloud-auth\src\main\java\com\cloud\auth\controller\AuthController.java
+D:\downloadProject\cloud-model\cloud-auth\src\main\java\com\cloud\auth\interceptor\InnerTokenRequestInterceptor.java

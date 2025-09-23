@@ -5,6 +5,8 @@ import com.cloud.api.system.dto.UserCreateDTO;
 import com.cloud.api.system.dto.UserInfoDTO;
 import com.cloud.api.system.dto.UserLoginDTO;
 import com.cloud.common.result.Result;
+import feign.Headers;
+import feign.Param;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +25,7 @@ public interface SystemUserClient {
      * @param username 用户名
      * @return 用户认证信息
      */
-    @GetMapping("/system/user/info/{username}")
+    @GetMapping("/user/info/{username}")
     Result<UserInfoDTO> getAuthUserByUsername(@PathVariable("username") String username);
 
 
@@ -33,9 +35,9 @@ public interface SystemUserClient {
      * @param userCreateDTO 用户创建信息
      * @return 用户信息
      */
-    @PostMapping("/system/user")
+    @PostMapping("/user")
     Result<Long> createUser(@RequestBody UserCreateDTO userCreateDTO);
 
-    @GetMapping("/system/user/load-by-username")
+    @GetMapping("/user/load-by-username")
     Result<UserLoginDTO> loadUserByUsername(@RequestParam("username") String username);
 }

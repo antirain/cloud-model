@@ -8,7 +8,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
-import reactor.core.publisher.Mono;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
@@ -117,15 +116,6 @@ public class JwtTokenProvider {
         return new UsernamePasswordAuthenticationToken(username, "", authorities);
     }
 
-    // 👇 响应式版本（可选，用于 WebFlux Filter）
-    public Mono<Authentication> getAuthenticationReactive(String token) {
-        try {
-            Authentication auth = getAuthentication(token);
-            return Mono.just(auth);
-        } catch (Exception e) {
-            return Mono.error(e);
-        }
-    }
 
     // ============ 工具方法 ============
 
