@@ -1,9 +1,11 @@
 package com.cloud.system.vo;
 
+import com.cloud.system.entity.Menu;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 @Schema(description = "菜单信息")
@@ -39,4 +41,6 @@ public class MenuVO {
     @Schema(description = "父级ID")
     private Long parentId;
 
+    @Schema(description = "子菜单")
+    List<Menu> children;
 }

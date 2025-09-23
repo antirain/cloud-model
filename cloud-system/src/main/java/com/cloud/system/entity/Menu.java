@@ -46,6 +46,4 @@ public class Menu extends BaseEntity {
     @Schema(description = "父级ID")
     private Long parentId;
 
-    @Schema(description = "子菜单")
-    List<Menu> children;
 }

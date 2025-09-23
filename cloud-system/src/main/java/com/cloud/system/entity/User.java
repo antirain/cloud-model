@@ -1,13 +1,16 @@
 package com.cloud.system.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.cloud.common.annotation.Sensitive;
 import com.cloud.common.entity.BaseEntity;
+import com.cloud.common.enums.SensitiveType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
  * 用户实体
+ * @author local
  */
 @EqualsAndHashCode(callSuper = true)
 @Schema(description = "用户实体")
@@ -30,6 +33,7 @@ public class User extends BaseEntity {
     private String email;
 
     @Schema(description = "手机号")
+    @Sensitive(SensitiveType.PHONE)
     private String phone;
 
     @Schema(description = "状态 0-禁用 1-启用")

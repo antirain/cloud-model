@@ -20,7 +20,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 认证用户服务实现类
+ * @author local
+ * @date 2025-09-22
+ * @description
  */
 @Service
 public class AuthUserServiceImpl implements AuthUserService {

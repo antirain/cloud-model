@@ -49,13 +49,7 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
         // TODO: 验证token有效性（可以调用auth-service验证）
         log.info("Token validation passed for path: {}", path);
 
-        // 将用户信息添加到请求头
-        ServerHttpRequest newRequest = request.mutate()
-                .header("X-User-Id", "1") // 实际应该从token解析
-                .header("X-Username", "admin")
-                .build();
-
-        return chain.filter(exchange.mutate().request(newRequest).build());
+        return chain.filter(exchange.mutate().request(request).build());
     }
 
     private boolean shouldSkipAuth(String path) {

@@ -3,13 +3,13 @@ D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\entit
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\controller\RoleController.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\entity\Role.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\constant\SystemConstants.java
+D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\config\SecurityConfig.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\service\MenuService.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\controller\MenuController.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\vo\UserRoleVO.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\mapper\RoleMenuMapper.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\entity\UserRole.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\service\RoleService.java
-D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\config\SystemConfig.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\mapper\MenuMapper.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\service\impl\MenuServiceImpl.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\controller\UserController.java

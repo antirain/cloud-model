@@ -1,6 +1,7 @@
 package com.cloud.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.cloud.system.dto.MenuTree;
 import com.cloud.system.entity.Menu;
 import com.cloud.common.result.Result;
 
@@ -24,12 +25,12 @@ public interface MenuService extends IService<Menu> {
     /**
      * 获取菜单树结构
      */
-    Result<List<Menu>> getMenuTree();
+    Result<List<MenuTree>> getMenuTree();
 
     /**
      * 获取用户菜单列表
      */
-    Result<List<Menu>> getUserMenus(Long userId);
+    Result<List<MenuTree>> getUserMenus(Long userId);
 
     /**
      * 获取所有启用菜单
