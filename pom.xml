@@ -30,6 +30,7 @@
         <lombok.version>1.18.30</lombok.version>
         <jjwt.version>0.12.5</jjwt.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
+        <spring-security-crypto.version>6.2.4 </spring-security-crypto.version>
     </properties>
 
     <modules>
@@ -42,7 +43,8 @@
         <!-- 业务模块 -->
         <module>cloud-gateway</module>
         <module>cloud-system</module>
-        <module>cloud-business</module>
+        <module>cloud-order</module>
+        <module>cloud-product</module>
         <module>cloud-auth</module>
     </modules>
 
@@ -84,6 +86,11 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-jsqlparser</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
                 <version>${mybatis-plus.version}</version>
             </dependency>
             <!-- MySQL -->

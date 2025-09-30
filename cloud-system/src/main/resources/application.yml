@@ -5,7 +5,10 @@ spring:
   application:
     name: cloud-system
   config:
-    import: optional:nacos:cloud-system.yaml
+    import:
+      - nacos:common-db.yaml
+      - nacos:common-redis.yaml
+      - nacos:cloud-system.yaml
   cloud:
     nacos:
       discovery:

@@ -1,2 +1,3 @@
-D:\downloadProject\cloud-model\cloud-common\cloud-common-datasource\src\main\java\com\cloud\common\config\MybatisPlusConfig.java
-D:\downloadProject\cloud-model\cloud-common\cloud-common-datasource\src\main\java\com\cloud\common\entity\BaseEntity.java
+D:\downloadProject\cloud-model\cloud-common\cloud-common-datasource\src\main\java\com\cloud\common\datasource\entity\BaseEntity.java
+D:\downloadProject\cloud-model\cloud-common\cloud-common-datasource\src\main\java\com\cloud\common\datasource\config\MybatisPlusConfig.java
+D:\downloadProject\cloud-model\cloud-common\cloud-common-datasource\src\main\java\com\cloud\common\datasource\MpGenerator.java

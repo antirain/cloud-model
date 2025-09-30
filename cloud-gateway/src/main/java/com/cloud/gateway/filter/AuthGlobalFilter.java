@@ -1,5 +1,8 @@
 package com.cloud.gateway.filter;
 
+import com.cloud.common.security.constant.SecurityConstants;
+import com.cloud.common.security.util.JwtOperator;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -8,25 +11,31 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.util.StringUtils;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
- * 认证全局过滤器
+ * @author local
+ * @date 2025-09-28
+ * @description
  */
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class AuthGlobalFilter implements GlobalFilter, Ordered {
 
-    private static final List<String> SKIP_AUTH_URLS = Arrays.asList(
+    private final JwtOperator jwtOperator;
+    private final AntPathMatcher matcher = new AntPathMatcher();
+
+    /** 白名单 */
+    private static final List<String> WHITE_LIST = List.of(
             "/auth/login",
             "/auth/register",
-            "/swagger-ui",
-            "/v3/api-docs"
+            "/actuator/**"
     );
 
     @Override
@@ -34,45 +43,54 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
         ServerHttpRequest request = exchange.getRequest();
         String path = request.getURI().getPath();
 
-        // 跳过不需要认证的URL
-        if (shouldSkipAuth(path)) {
+        // 1. 白名单直接放行
+        boolean skip = WHITE_LIST.stream().anyMatch(p -> matcher.match(p, path));
+        if (skip) {
             return chain.filter(exchange);
         }
 
-        // 获取token
+        // 2. 取令牌
         String token = getToken(request);
         if (!StringUtils.hasText(token)) {
-            log.warn("Token is missing for path: {}", path);
-            return unauthorized(exchange.getResponse());
+            log.warn("缺少Token:{}", path);
+            return unauthorized(exchange);
         }
 
-        // TODO: 验证token有效性（可以调用auth-service验证）
-        log.info("Token validation passed for path: {}", path);
+        // 3. 验签 & 过期
+        try {
+            var claims = jwtOperator.validate(token);
+            String roles = claims.get(SecurityConstants.ROLE_PERMISSION, String.class);
+            String userId = String.valueOf(claims.get(SecurityConstants.DETAILS_USER_ID, Long.class));
+            // 4. 把头带下去
+            ServerHttpRequest mutated = request.mutate()
+                    .header("X-User-Id", userId)
+                    .header("X-Role", roles)
+                    .build();
+            return chain.filter(exchange.mutate().request(mutated).build());
 
-        return chain.filter(exchange.mutate().request(request).build());
-    }
-
-    private boolean shouldSkipAuth(String path) {
-        return SKIP_AUTH_URLS.stream().anyMatch(path::contains);
+        } catch (Exception e) {
+            log.warn("无效Token:{}", e.getMessage());
+            return unauthorized(exchange);
+        }
     }
 
     private String getToken(ServerHttpRequest request) {
-        String bearerToken = request.getHeaders().getFirst("Authorization");
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7);
+        String bearer = request.getHeaders().getFirst("Authorization");
+        if (StringUtils.hasText(bearer) && bearer.startsWith("Bearer ")) {
+            return bearer.substring(7);
         }
         return null;
     }
 
-    private Mono<Void> unauthorized(ServerHttpResponse response) {
+    private Mono<Void> unauthorized(ServerWebExchange exchange) {
+        ServerHttpResponse response = exchange.getResponse();
         response.setStatusCode(HttpStatus.UNAUTHORIZED);
-        response.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
-        String body = "{\"code\":401,\"message\":\"未授权访问\"}";
-        return response.writeWith(Mono.just(response.bufferFactory().wrap(body.getBytes())));
+        // 可以写 JSON 体
+        return response.setComplete();
     }
 
     @Override
     public int getOrder() {
-        return -1; // 最高优先级
+        return -100;   // 越早越好
     }
 }

@@ -1,6 +1,6 @@
 package com.cloud.system.vo;
 
-import com.cloud.system.entity.Menu;
+import com.cloud.system.entity.SysMenu;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -23,7 +23,7 @@ public class RoleMenuVO {
     private String roleCode;
 
     @Schema(description = "角色菜单列表")
-    private List<Menu> menus;
+    private List<SysMenu> menus;
 
     @Schema(description = "菜单ID列表")
     private List<Long> menuIds;

@@ -9,13 +9,13 @@
     <file url="file://$PROJECT_DIR$/cloud-api/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud-auth/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud-auth/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/cloud-business/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/cloud-business/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud-common/cloud-common-core/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud-common/cloud-common-core/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud-common/cloud-common-datasource/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/cloud-common/cloud-common-datasource/src/main/java/com/cloud/common/entity/BaseEntity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cloud-common/cloud-common-datasource/src/main/java/com/cloud/common/datasource/entity/BaseEntity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud-common/cloud-common-datasource/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cloud-common/cloud-common-redis/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cloud-common/cloud-common-redis/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud-common/cloud-common-security-core/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud-common/cloud-common-security-core/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud-common/cloud-common-security-webflux/src/main/java" charset="UTF-8" />
@@ -25,12 +25,18 @@
     <file url="file://$PROJECT_DIR$/cloud-common/cloud-common-security/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud-common/cloud-common-security/src/main/java/com/cloud/common/utils/JwtUtil.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud-common/cloud-common-security/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cloud-common/cloud-common-web/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cloud-common/cloud-common-web/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud-common/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud-common/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud-feign-client/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud-feign-client/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud-gateway/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud-gateway/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cloud-order/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cloud-order/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cloud-product/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cloud-product/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud-system/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud-system/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />

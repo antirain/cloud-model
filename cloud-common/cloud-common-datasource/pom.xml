@@ -19,7 +19,7 @@
         <!-- 依赖公共核心模块 -->
         <dependency>
             <groupId>com.cloud</groupId>
-            <artifactId>cloud-common-core</artifactId>
+            <artifactId>cloud-common-web</artifactId>
             <version>1.0.0</version>
         </dependency>
 
@@ -45,6 +45,17 @@
             <artifactId>druid-spring-boot-starter</artifactId>
         </dependency>
 
+        <!-- MyBatis Plus Generator -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity-engine-core</artifactId>
+            <version>2.3</version>
+        </dependency>
 
     </dependencies>
 </project>
