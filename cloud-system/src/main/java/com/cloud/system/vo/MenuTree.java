@@ -1,4 +1,4 @@
-package com.cloud.system.dto;
+package com.cloud.system.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

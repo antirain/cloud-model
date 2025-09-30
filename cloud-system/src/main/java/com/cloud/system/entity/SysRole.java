@@ -41,7 +41,7 @@ public class SysRole extends BaseEntity {
 
     @Schema(description = "状态 0-禁用 1-启用")
     @TableField("status")
-    private Byte status;
+    private Integer status;
 
     @Schema(description = "版本号")
     @TableField("version")

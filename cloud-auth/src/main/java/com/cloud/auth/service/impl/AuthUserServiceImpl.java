@@ -7,7 +7,7 @@ import com.cloud.api.system.dto.UserInfoDTO;
 import com.cloud.api.system.dto.UserLoginDTO;
 import com.cloud.auth.service.AuthUserService;
 import com.cloud.auth.vo.LoginResultVO;
-import com.cloud.common.security.constant.SecurityConstants;
+import com.cloud.common.core.constant.SecurityConstants;
 import com.cloud.common.security.util.JwtOperator;
 import com.cloud.common.security.util.PasswordEncoderUtil;
 import com.cloud.common.core.exception.BusinessException;

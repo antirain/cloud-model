@@ -4,5 +4,7 @@ const GATEWAY_BASE = import.meta.env.PROD ? '' : '/dev-api'
 export const SERVICE_PREFIX = {
   AUTH: `${GATEWAY_BASE}/auth`,
   SYSTEM: `${GATEWAY_BASE}/system`,
-  FILE: `${GATEWAY_BASE}/file`
+  FILE: `${GATEWAY_BASE}/file`,
+  ORDER: `${GATEWAY_BASE}/order`,
+  PRODUCT: `${GATEWAY_BASE}/product`
 }

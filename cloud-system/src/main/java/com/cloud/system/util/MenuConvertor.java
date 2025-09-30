@@ -1,6 +1,6 @@
 package com.cloud.system.util;
 
-import com.cloud.system.dto.MenuTree;
+import com.cloud.system.vo.MenuTree;
 import com.cloud.system.entity.SysMenu;
 
 import java.util.ArrayList;

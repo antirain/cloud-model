@@ -4,6 +4,7 @@ import { ElMessage } from 'element-plus'
 import { User, Lock } from '@element-plus/icons-vue'
 import { login } from '@/api/auth/auth'
 import { useUserStore } from '@/store/modules/user';
+import { useRouteStore } from '@/store/modules/route';
 import { useRouter } from 'vue-router';
 const loginFormRef = ref(null)
 
@@ -16,15 +17,19 @@ const rules = {
   password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
 }
 const userStore = useUserStore();
+const routeStore =useRouteStore();
 const router = useRouter();
 const handleLogin = () => {
   loginFormRef.value.validate((valid) => {
     if (valid) {
-      login(formData.value).then(res => {
+      login(formData.value).then(async res => {
         if (res.code === 200) {
           const data = res.data;
           ElMessage.success('登录成功')
           userStore.setToken(data.token);
+
+           // 加载动态路由
+          routeStore.generateRoutes();
           router.push('/dashboard'); // 跳转首页
         }
       }).catch(err => {
@@ -42,10 +47,10 @@ const handleLogin = () => {
     <!-- 登录卡片 -->
     <div class="login-box">
       <div class="login-logo">
-        <h1>云管理系统</h1>
+        <h1>用户登录</h1>
       </div>
 
-      <el-form :model="formData" :rules="rules" ref="loginFormRef" class="login-form">
+      <el-form :model="formData" :rules="rules" ref="loginFormRef" class="login-form" @submit.prevent="handleLogin">
         <el-form-item prop="username">
           <el-input 
             v-model="formData.username" 
@@ -64,6 +69,7 @@ const handleLogin = () => {
             show-password
             prefix-icon="Lock"
             class="login-input"
+            @keyup.enter="handleLogin"
           />
         </el-form-item>
 

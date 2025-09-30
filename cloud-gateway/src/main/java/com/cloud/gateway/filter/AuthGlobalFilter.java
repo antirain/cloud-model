@@ -1,6 +1,6 @@
 package com.cloud.gateway.filter;
 
-import com.cloud.common.security.constant.SecurityConstants;
+import com.cloud.common.core.constant.SecurityConstants;
 import com.cloud.common.security.util.JwtOperator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

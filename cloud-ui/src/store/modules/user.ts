@@ -17,6 +17,8 @@ export const useUserStore = defineStore('user', {
     },
 
     logout() {
+      console.log("store");
+      
       this.token = '';
       this.userInfo = null;
       localStorage.removeItem('token');

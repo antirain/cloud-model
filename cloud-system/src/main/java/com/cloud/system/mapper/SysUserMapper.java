@@ -4,6 +4,7 @@ import com.cloud.system.entity.SysRole;
 import com.cloud.system.entity.SysUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -20,5 +21,5 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
 
     List<SysRole> selectRolesByUserId(Long userId);
 
-    List<String> selectPermissionByRoleIds(List<Long> roleIds);
+    List<String> selectPermissionByRoleIds(@Param("roleIds") List<Long> roleIds);
 }

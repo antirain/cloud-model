@@ -49,6 +49,11 @@
             <artifactId>cloud-common-security</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.cloud</groupId>
+            <artifactId>cloud-common-core</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
     <build>

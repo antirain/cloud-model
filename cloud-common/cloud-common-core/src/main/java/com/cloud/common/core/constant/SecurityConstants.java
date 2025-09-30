@@ -1,4 +1,4 @@
-package com.cloud.common.security.constant;
+package com.cloud.common.core.constant;
 
 /**
  * 权限相关通用常量

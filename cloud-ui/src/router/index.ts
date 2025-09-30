@@ -2,10 +2,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { staticRoutes } from "./staticRoutes";
 import { useUserStore } from "@/store/modules/user";
-import { useRouteStore } from "@/store/modules/route";
-
-// 路由初始化状态
-let isRoutesLoaded = false;
 
 // 👇 合并所有路由（初始只有静态路由）
 const routes = [...staticRoutes]; // 静态路由（登录、404 等）
@@ -17,26 +13,18 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   const userStore = useUserStore();
-  const routeStore = useRouteStore();
+  console.log('路由守卫触发:', to.path, '登录状态:', userStore.isLogin)
+  
   if (userStore.isLogin) {
-    if (!routeStore.isDynamicRouteAdded) {
-      console.log("动态路由未添加，开始添加...");
-      try {
-        await routeStore.generateRoutes();
-        // ⚠️ 关键：重新导航，让新路由生效
-        next({ ...to, replace: true });
-      } catch (error) {
-        userStore.logout();
-        next("/login");
-      }
-    } else {
-      console.log("动态路由已添加，直接放行");
-      next();
-    }
+    // 已登录，直接放行
+    console.log('已登录，放行到:', to.path)
+    next();
   } else {
     if (to.path === "/login") {
+      console.log('未登录，访问登录页，放行')
       next();
     } else {
+      console.log('未登录，重定向到登录页')
       next("/login");
     }
   }

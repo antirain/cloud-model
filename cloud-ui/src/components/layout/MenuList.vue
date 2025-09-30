@@ -39,7 +39,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
@@ -49,15 +49,15 @@ const props = defineProps<{
   items: any[]
 }>()
 
-const isActive = (item) => {
+const isActive = (item: any) => {
   return route.path === item.path
 }
 
-const isExpanded = (item) => {
+const isExpanded = (item: any) => {
   return expandedKeys.value.has(item.path)
 }
 
-const toggle = (item) => {
+const toggle = (item: any) => {
   const key = item.path
   if (expandedKeys.value.has(key)) {
     expandedKeys.value.delete(key)
