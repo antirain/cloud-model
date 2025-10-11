@@ -47,6 +47,8 @@
         <module>cloud-order</module>
         <module>cloud-product</module>
         <module>cloud-auth</module>
+        <module>cloud-ollama</module>
+        <module>cloud-vform</module>
     </modules>
 
     <dependencyManagement>

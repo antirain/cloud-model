@@ -4,8 +4,11 @@ D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\mappe
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\entity\SysMenu.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\service\SysRoleService.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\controller\SysUserRoleController.java
+D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\exception\UserErrorCode.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\vo\UserRoleVO.java
+D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\vo\MenuTree.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\service\impl\SysRoleServiceImpl.java
+D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\exception\RoleErrorCode.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\controller\SysRoleController.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\service\impl\SysUserRoleServiceImpl.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\service\SysUserRoleService.java
@@ -14,7 +17,6 @@ D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\entit
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\service\SysMenuService.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\mapper\SysUserMapper.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\service\impl\SysRoleMenuServiceImpl.java
-D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\dto\MenuTree.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\vo\RoleMenuVO.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\service\SysRoleMenuService.java
 D:\downloadProject\cloud-model\cloud-system\src\main\java\com\cloud\system\vo\MenuVO.java

@@ -9,6 +9,7 @@ com\cloud\system\service\SysRoleService.class
 com\cloud\system\vo\RoleMenuVO.class
 com\cloud\system\controller\SysMenuController.class
 com\cloud\system\mapper\SysRoleMapper.class
+com\cloud\system\vo\MenuTree.class
 com\cloud\system\service\impl\SysRoleMenuServiceImpl.class
 com\cloud\system\util\UserConvertorImpl.class
 com\cloud\system\controller\SysUserController.class
@@ -27,13 +28,14 @@ com\cloud\system\controller\SysUserRoleController.class
 com\cloud\system\entity\SysRoleMenu.class
 com\cloud\system\constant\SystemConstants$RoleCode.class
 com\cloud\system\entity\SysRole.class
+com\cloud\system\exception\UserErrorCode.class
 com\cloud\system\service\impl\SysUserRoleServiceImpl.class
 com\cloud\system\constant\SystemConstants$MenuCode.class
 com\cloud\system\entity\SysMenu.class
 com\cloud\system\controller\SysRoleMenuController.class
 com\cloud\system\service\SysUserRoleService.class
 com\cloud\system\constant\SystemConstants.class
-com\cloud\system\dto\MenuTree.class
+com\cloud\system\exception\RoleErrorCode.class
 com\cloud\system\vo\UserDetailVO.class
 com\cloud\system\mapper\SysUserMapper.class
 com\cloud\system\service\impl\SysUserServiceImpl.class

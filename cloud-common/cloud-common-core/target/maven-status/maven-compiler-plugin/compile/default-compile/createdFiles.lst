@@ -1,2 +1,11 @@
-com\cloud\common\core\enums\ResultCode.class
+com\cloud\common\core\utils\InstanceVariableCapture$Product.class
 com\cloud\common\core\exception\BusinessException.class
+com\cloud\common\core\constant\SecurityConstants.class
+com\cloud\common\core\utils\InstanceVariableCapture.class
+com\cloud\common\core\utils\InstanceVariableCapture$Order.class
+com\cloud\common\core\utils\CharsetKit.class
+com\cloud\common\core\context\SecurityContextHolder.class
+com\cloud\common\core\enums\ResultCode.class
+com\cloud\common\core\utils\InstanceVariableCapture$User.class
+com\cloud\common\core\enums\ErrorCode.class
+com\cloud\common\core\utils\Singleton.class

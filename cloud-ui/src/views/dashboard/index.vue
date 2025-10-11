@@ -1,69 +1,46 @@
-<script setup lang="ts">
-// 仪表板页面
-
-</script>
-
 <template>
-  <div class="dashboard">
-    <h2>系统概览</h2>
-    <div class="stats-grid">
-      <el-card class="stat-card">
-        <div class="stat-item">
-          <div class="stat-value">156</div>
-          <div class="stat-label">总订单数</div>
-        </div>
-      </el-card>
-      <el-card class="stat-card">
-        <div class="stat-item">
-          <div class="stat-value">89</div>
-          <div class="stat-label">今日订单</div>
-        </div>
-      </el-card>
-      <el-card class="stat-card">
-        <div class="stat-item">
-          <div class="stat-value">42</div>
-          <div class="stat-label">商品总数</div>
-        </div>
-      </el-card>
-      <el-card class="stat-card">
-        <div class="stat-item">
-          <div class="stat-value">¥12,568</div>
-          <div class="stat-label">今日销售额</div>
-        </div>
-      </el-card>
-    </div>
+  <div id="app">
+    <v-form-designer ref="vfDesigner" :banned-widgets="testBanned"
+                   :designer-config="designerConfig">
+      <!-- 自定义按钮插槽演示 -->
+      <template #customToolButtons>
+        <el-button type="text" @click="saveFormJson">保存</el-button>
+      </template>
+    </v-form-designer>
+
   </div>
 </template>
 
-<style scoped>
-.dashboard {
-  padding: 20px;
-}
+<script setup>
+  import { ref, reactive } from 'vue'
+  import { ElMessage } from 'element-plus'
 
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-  margin-top: 20px;
-}
+  const vfDesigner = ref(null)
+ 
+  const testBanned = ref([
+    //'sub-form',
+    //'alert',
+  ])
+  const designerConfig = reactive({
+    languageMenu: true,
+    //externalLink: false,
+    //formTemplates: false,
+    //eventCollapse: false,
+    //clearDesignerButton: false,
+    //previewFormButton: false,
 
-.stat-card {
-  text-align: center;
-}
+    //presetCssCode: '.abc { font-size: 16px; }',
+  })
 
-.stat-item {
-  padding: 20px;
-}
+  const saveFormJson = () => {
+    let formJson = vfDesigner.value.getFormJson()
+    //TODO: 将formJson提交给后端保存接口，需自行实现！！
+    ElMessage.success('表单已保存！')
+  }
+</script>
 
-.stat-value {
-  font-size: 32px;
-  font-weight: bold;
-  color: #409eff;
-  margin-bottom: 8px;
-}
-
-.stat-label {
-  color: #666;
-  font-size: 14px;
-}
+<style lang="scss">
+  #app {
+    height: 100%;
+  }
 </style>

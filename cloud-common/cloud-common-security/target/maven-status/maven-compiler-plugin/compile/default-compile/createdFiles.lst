@@ -1,3 +1,2 @@
 com\cloud\common\security\util\JwtOperator.class
 com\cloud\common\security\util\PasswordEncoderUtil.class
-com\cloud\common\security\constant\SecurityConstants.class
