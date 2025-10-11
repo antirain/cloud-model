@@ -1,4 +1,0 @@
-com\cloud\common\datasource\config\MybatisPlusConfig.class
-com\cloud\common\datasource\MpGenerator.class
-com\cloud\common\datasource\utils\MpUtils.class
-com\cloud\common\datasource\entity\BaseEntity.class

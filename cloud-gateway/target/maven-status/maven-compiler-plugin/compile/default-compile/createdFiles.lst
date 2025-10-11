@@ -1,4 +1,0 @@
-com\cloud\gateway\config\GatewayExcludeConfig.class
-com\cloud\gateway\filter\AuthGlobalFilter.class
-com\cloud\gateway\GatewayApplication.class
-com\cloud\gateway\config\JwtConfig.class
