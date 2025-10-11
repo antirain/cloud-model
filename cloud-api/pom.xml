@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>cloud-model</artifactId>
+        <groupId>com.cloud</groupId>
+        <version>1.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>cloud-api</artifactId>
+    <name>cloud-api</name>
+    <description>服务间接口和数据模型定义的父模块</description>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>cloud-system-api</module>
+    </modules>
+
+    <!-- 作为父模块，不需要声明具体依赖，让子模块根据需要自行声明 -->
+    
+    <!-- 如需共享依赖版本，可在此处使用dependencyManagement -->
+        <dependencies>
+            <!-- 公共核心模块 -->
+            <dependency>
+                <groupId>com.cloud</groupId>
+                <artifactId>cloud-common-web</artifactId>
+                <version>1.0.0</version>
+            </dependency>
+            
+            <!-- Spring Cloud OpenFeign -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-openfeign</artifactId>
+            </dependency>
+            
+
+        </dependencies>
+
+    <build>
+        <plugins>
+            <!-- 配置编译器插件，所有子模块共享 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>default-compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

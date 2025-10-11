@@ -1,0 +1,28 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: cloud-ollama
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: localhost:8848
+#        namespace: public
+#      config:
+#        server-addr: localhost:8848
+#        namespace: public
+#        file-extension: yaml
+
+# Ollama配置
+ollama:
+  base-url: http://127.0.0.1:11434
+  model-name: deepseek-r1:8b
+
+# 日志配置
+logging:
+  level:
+    com.cloud.ollama: DEBUG
+    dev.langchain4j: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"

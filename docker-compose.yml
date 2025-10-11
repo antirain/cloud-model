@@ -1,0 +1,132 @@
+version: '3.8'
+
+services:
+  # Nacos 注册中心
+  nacos:
+    image: nacos/nacos-server:v2.3.0
+    container_name: nacos-standalone
+    environment:
+      - PREFER_HOST_MODE=hostname
+      - MODE=standalone
+      - SPRING_DATASOURCE_PLATFORM=mysql
+      - MYSQL_SERVICE_HOST=mysql
+      - MYSQL_SERVICE_DB_NAME=nacos
+      - MYSQL_SERVICE_USER=root
+      - MYSQL_SERVICE_PASSWORD=123456
+      - MYSQL_SERVICE_DB_PARAM=characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC
+    ports:
+      - "8848:8848"
+      - "9848:9848"
+      - "9849:9849"
+    depends_on:
+      - mysql
+    networks:
+      - cloud-network
+
+  # MySQL 数据库
+  mysql:
+    image: mysql:8.0.33
+    container_name: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=nacos
+      - MYSQL_USER=nacos
+      - MYSQL_PASSWORD=nacos
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./doc/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - cloud-network
+    command: --default-authentication-plugin=mysql_native_password
+
+  # Redis 缓存
+  redis:
+    image: redis:7.2-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - cloud-network
+    command: redis-server --appendonly yes
+
+  # 网关服务
+  cloud-gateway:
+    build:
+      context: ./cloud-gateway
+      dockerfile: Dockerfile
+    container_name: cloud-gateway
+    ports:
+      - "9000:9000"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - NACOS_SERVER=nacos:8848
+    depends_on:
+      - nacos
+    networks:
+      - cloud-network
+
+  # 系统服务
+  cloud-system:
+    build:
+      context: ./cloud-system
+      dockerfile: Dockerfile
+    container_name: cloud-system
+    ports:
+      - "9001:9001"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - NACOS_SERVER=nacos:8848
+      - MYSQL_HOST=mysql
+    depends_on:
+      - nacos
+      - mysql
+    networks:
+      - cloud-network
+
+  # 认证服务
+  cloud-auth:
+    build:
+      context: ./cloud-auth
+      dockerfile: Dockerfile
+    container_name: cloud-auth
+    ports:
+      - "9002:9002"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - NACOS_SERVER=nacos:8848
+      - MYSQL_HOST=mysql
+    depends_on:
+      - nacos
+      - mysql
+    networks:
+      - cloud-network
+
+  # 业务服务
+  cloud-business:
+    build:
+      context: ./cloud-business
+      dockerfile: Dockerfile
+    container_name: cloud-business
+    ports:
+      - "9003:9003"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - NACOS_SERVER=nacos:8848
+      - MYSQL_HOST=mysql
+    depends_on:
+      - nacos
+      - mysql
+    networks:
+      - cloud-network
+
+volumes:
+  mysql_data:
+  redis_data:
+
+networks:
+  cloud-network:
+    driver: bridge
