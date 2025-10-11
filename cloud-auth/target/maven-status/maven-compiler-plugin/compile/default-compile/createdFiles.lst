@@ -1,8 +1,7 @@
-com\cloud\auth\config\AuthSecurityConfig.class
+com\cloud\auth\vo\LoginResultVO.class
 com\cloud\auth\interceptor\InnerTokenRequestInterceptor.class
 com\cloud\auth\service\AuthUserService.class
 com\cloud\auth\service\impl\AuthUserServiceImpl.class
-com\cloud\auth\service\impl\CustomUserDetailsService.class
 com\cloud\auth\AuthApplication.class
+com\cloud\auth\config\JwtConfig.class
 com\cloud\auth\controller\AuthController.class
-com\cloud\auth\util\SecurityUtilsImpl.class

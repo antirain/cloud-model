@@ -18,11 +18,14 @@
           <entry name="$PROJECT_DIR$/../../apache-maven-3.9.11/repository/org/mapstruct/mapstruct/1.5.5.Final/mapstruct-1.5.5.Final.jar" />
         </processorPath>
         <module name="cloud-system" />
+        <module name="cloud-product" />
         <module name="cloud-common-datasource" />
         <module name="cloud-common-security" />
         <module name="cloud-common-core" />
         <module name="cloud-system-api" />
-        <module name="cloud-business" />
+        <module name="cloud-common-redis" />
+        <module name="cloud-order" />
+        <module name="cloud-common-web" />
         <module name="cloud-auth" />
         <module name="cloud-gateway" />
       </profile>
@@ -30,6 +33,9 @@
     <bytecodeTargetLevel>
       <module name="cloud-api-core" target="17" />
       <module name="cloud-common-model" target="1.5" />
+      <module name="cloud-common-security-core" target="17" />
+      <module name="cloud-common-security-webflux" target="17" />
+      <module name="cloud-common-security-webmvc" target="17" />
       <module name="cloud-feign-client" target="17" />
     </bytecodeTargetLevel>
   </component>
@@ -38,17 +44,20 @@
       <module name="cloud-api" options="-Xlint:deprecation -Xlint:unchecked" />
       <module name="cloud-api-core" options="-Xlint:deprecation -Xlint:unchecked" />
       <module name="cloud-auth" options="-Xlint:deprecation -Xlint:unchecked" />
-      <module name="cloud-business" options="-Xlint:deprecation -Xlint:unchecked" />
       <module name="cloud-common" options="-Xlint:deprecation -Xlint:unchecked" />
       <module name="cloud-common-core" options="-Xlint:deprecation -Xlint:unchecked" />
       <module name="cloud-common-datasource" options="-Xlint:deprecation -Xlint:unchecked" />
+      <module name="cloud-common-redis" options="-Xlint:deprecation -Xlint:unchecked" />
       <module name="cloud-common-security" options="-Xlint:deprecation -Xlint:unchecked" />
       <module name="cloud-common-security-core" options="-Xlint:deprecation -Xlint:unchecked" />
       <module name="cloud-common-security-webflux" options="-Xlint:deprecation -Xlint:unchecked" />
       <module name="cloud-common-security-webmvc" options="-Xlint:deprecation -Xlint:unchecked" />
+      <module name="cloud-common-web" options="-Xlint:deprecation -Xlint:unchecked" />
       <module name="cloud-feign-client" options="-Xlint:deprecation -Xlint:unchecked" />
       <module name="cloud-gateway" options="-Xlint:deprecation -Xlint:unchecked" />
       <module name="cloud-model" options="-Xlint:deprecation -Xlint:unchecked" />
+      <module name="cloud-order" options="-Xlint:deprecation -Xlint:unchecked" />
+      <module name="cloud-product" options="-Xlint:deprecation -Xlint:unchecked" />
       <module name="cloud-system" options="-Xlint:deprecation -Xlint:unchecked" />
       <module name="cloud-system-api" options="-Xlint:deprecation -Xlint:unchecked" />
     </option>

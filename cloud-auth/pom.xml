@@ -49,6 +49,16 @@
             <artifactId>cloud-system-api</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.cloud</groupId>
+            <artifactId>cloud-common-redis</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.cloud</groupId>
+            <artifactId>cloud-common-web</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
     <build>

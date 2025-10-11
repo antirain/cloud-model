@@ -1,14 +1,9 @@
 package com.cloud.auth.interceptor;
 
-import com.cloud.common.config.InternalServiceProperties;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpRequest;
-import org.springframework.http.client.ClientHttpRequestExecution;
-import org.springframework.http.client.ClientHttpRequestInterceptor;
-import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -31,7 +26,9 @@ public class InnerTokenRequestInterceptor implements RequestInterceptor {
     }
 
     private boolean matchPath(String pattern, String path) {
-        if (pattern.equals(path)) return true;
+        if (pattern.equals(path)) {
+            return true;
+        }
         if (pattern.endsWith("/**")) {
             String prefix = pattern.substring(0, pattern.length() - 3);
             return path.startsWith(prefix);

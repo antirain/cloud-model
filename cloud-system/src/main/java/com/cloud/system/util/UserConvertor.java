@@ -1,42 +1,52 @@
 package com.cloud.system.util;
 
+import com.cloud.api.system.dto.UserCreateDTO;
 import com.cloud.api.system.dto.UserInfoDTO;
+import com.cloud.api.system.dto.UserLoginDTO;
 import com.cloud.api.system.dto.UserUpdateDTO;
-import com.cloud.system.entity.User;
-import com.cloud.system.vo.UserVO;
+import com.cloud.system.entity.SysUser;
+import com.cloud.system.vo.UserListVO;
 import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
 /**
- * 用户对象转换工具类
- * 用于在User实体对象和UserVO视图对象之间进行转换
+ * @author local
+ * @date 2025-09-29
+ * @description
  */
 @Mapper(componentModel = "spring")
 public interface UserConvertor {
 
+//    UserConvertor INSTANCE = Mappers.getMapper(UserConvertor.class);
+
     /**
      * 将User实体转换为UserVO
-     * @param user 用户实体
+     * @param sysUser 用户实体
      * @return 用户视图对象
      */
-    UserVO toUserVO(User user);
+    UserListVO toUserListVO(SysUser sysUser);
     
     /**
      * 将UserVO转换为User实体
-     * @param userVO 用户视图对象
+     * @param userListVO 用户视图对象
      * @return 用户实体
      */
-    User toUser(UserVO userVO);
+    SysUser toUser(UserListVO userListVO);
 
-    User toUser(UserUpdateDTO userUpdateDTO);
+    SysUser toUser(UserCreateDTO userCreateDTO);
 
-    UserInfoDTO toUserInfoDTO(User user);
+    SysUser toUser(UserUpdateDTO userUpdateDTO);
+
+    UserInfoDTO toUserInfoDTO(SysUser sysUser);
+
+    UserLoginDTO toUserLoginDTO(SysUser sysUser);
     /**
      * 将User实体列表转换为UserVO列表
      * @param users 用户实体列表
      * @return 用户视图对象列表
      */
-    List<UserVO> toUserVOList(List<User> users);
+    List<UserListVO> toListUserVO(List<SysUser> users);
 
 }

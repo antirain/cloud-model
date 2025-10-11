@@ -1,6 +1,6 @@
 package com.cloud.system.vo;
 
-import com.cloud.system.entity.Role;
+import com.cloud.system.entity.SysRole;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -20,7 +20,7 @@ public class UserRoleVO {
     private String username;
 
     @Schema(description = "用户角色列表")
-    private List<Role> roles;
+    private List<SysRole> roles;
 
     @Schema(description = "角色ID列表")
     private List<Long> roleIds;

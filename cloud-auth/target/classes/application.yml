@@ -5,7 +5,10 @@ spring:
   application:
     name: cloud-auth
   config:
-    import: optional:nacos:cloud-auth.yaml
+    import:
+      - nacos:common-jwt.yaml
+      - nacos:common-redis.yaml
+      - nacos:cloud-auth.yaml
   cloud:
     nacos:
       discovery:
@@ -18,6 +21,9 @@ spring:
         group: DEFAULT_GROUP
         file-extension: yaml
         refresh-enabled: true
+  data:
+    redis:
+      database: 5
 
 management:
   endpoints:

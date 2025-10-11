@@ -32,17 +32,12 @@
         <!-- 新的公共模块 -->
         <dependency>
             <groupId>com.cloud</groupId>
-            <artifactId>cloud-common-core</artifactId>
+            <artifactId>cloud-common-web</artifactId>
             <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>com.cloud</groupId>
             <artifactId>cloud-common-datasource</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.cloud</groupId>
-            <artifactId>cloud-common-security</artifactId>
             <version>1.0.0</version>
         </dependency>
         <dependency>

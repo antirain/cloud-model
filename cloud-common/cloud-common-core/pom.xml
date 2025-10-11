@@ -16,14 +16,7 @@
     <description>公共核心模块 - 包含基础工具类、响应结果、异常处理等不依赖数据库和安全框架的核心功能</description>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
-        </dependency>
+
         <!-- Hutool -->
         <dependency>
             <groupId>cn.hutool</groupId>
@@ -46,6 +39,11 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+        </dependency>
+        <!-- Transmittable ThreadLocal -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>transmittable-thread-local</artifactId>
         </dependency>
     </dependencies>
 </project>

@@ -1,111 +1,123 @@
 package com.cloud.auth.service.impl;
 
+import cn.hutool.core.util.IdUtil;
 import com.cloud.api.system.client.SystemUserClient;
 import com.cloud.api.system.dto.UserCreateDTO;
 import com.cloud.api.system.dto.UserInfoDTO;
+import com.cloud.api.system.dto.UserLoginDTO;
 import com.cloud.auth.service.AuthUserService;
-import com.cloud.common.entity.SecurityUser;
-import com.cloud.common.result.Result;
-import com.cloud.common.result.ResultCode;
-import com.cloud.common.util.SecurityUtils;
-import com.cloud.common.util.JwtTokenProvider;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import com.cloud.auth.vo.LoginResultVO;
+import com.cloud.common.core.constant.SecurityConstants;
+import com.cloud.common.security.util.JwtOperator;
+import com.cloud.common.security.util.PasswordEncoderUtil;
+import com.cloud.common.core.exception.BusinessException;
+import com.cloud.common.web.result.Result;
+import com.cloud.common.core.enums.ResultCode;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author local
  * @date 2025-09-22
  * @description
  */
+@Slf4j
 @Service
+@RequiredArgsConstructor
 public class AuthUserServiceImpl implements AuthUserService {
 
 
-    @Autowired
-    private JwtTokenProvider jwtUtil;
+    private final JwtOperator jwtOperator;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final SystemUserClient systemUserClient;
 
-    @Autowired
-    private SystemUserClient systemUserClient;
-
-    @Autowired
-    private SecurityUtils securityUtils;
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final RedisTemplate<String, Object> redisTemplate;
 
     @Override
-    public Result<String> login(String username, String password) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(username, password)
-        );
-        SecurityUser userDetails = (SecurityUser) authentication.getPrincipal();
+    public LoginResultVO login(String username, String password) {
+        Result<UserLoginDTO> loginResult = systemUserClient.loadUserByUsername(username);
+        if (!loginResult.isSuccess()) {
+            throw new BusinessException(ResultCode.BUSINESS_ERROR);
+        }
+        UserLoginDTO userDetails = loginResult.getData();
+        if (!PasswordEncoderUtil.matches(password, userDetails.getPassword())) {
+            throw new BusinessException(ResultCode.PASSWORD_ERROR);
+        }
+        String userKey = IdUtil.fastUUID();
 
         Map<String, Object> claims = new HashMap<>();
-        claims.put("userId", userDetails.getId());
-        claims.put("username", userDetails.getUsername());
-        claims.put("roleId", userDetails.getRoles());
 
-        String token = jwtUtil.generateToken(username, claims);
-        return Result.success(token);
+        claims.put(SecurityConstants.USER_KEY, userKey);
+        claims.put(SecurityConstants.DETAILS_USER_ID, userDetails.getId());
+        claims.put(SecurityConstants.DETAILS_USERNAME, userDetails.getUsername());
+        claims.put(SecurityConstants.ROLE_PERMISSION, String.join(",", userDetails.getRoles()));
+
+        String token = jwtOperator.generateToken(username, claims);
+
+        LoginResultVO resultVO = new LoginResultVO();
+        resultVO.setId(userDetails.getId());
+        resultVO.setUsername(userDetails.getUsername());
+        resultVO.setToken(token);
+        resultVO.setRole(userDetails.getRoles());
+        redisTemplate.opsForValue().set(SecurityConstants.USER_KEY + ":" + userKey, resultVO, jwtOperator.getAccessExpiration(), TimeUnit.MILLISECONDS);
+
+        //TODO 记录登录信息
+        return resultVO;
     }
 
     @Override
-    public Result<String> register(UserCreateDTO authUser) {
+    public void register(UserCreateDTO authUser) {
         if (getByUsername(authUser.getUsername()) != null) {
-            return Result.error(ResultCode.DATA_ALREADY_EXISTS);
+            throw new BusinessException(ResultCode.DATA_ALREADY_EXISTS);
         }
-
-        authUser.setPassword(passwordEncoder.encode(authUser.getPassword()));
+        authUser.setPassword(PasswordEncoderUtil.encode(authUser.getPassword()));
         systemUserClient.createUser(authUser);
-        return Result.success("注册成功");
     }
 
     @Override
     public UserInfoDTO getByUsername(String username) {
         Result<UserInfoDTO> authUserByUsername = systemUserClient.getAuthUserByUsername(username);
-        if (authUserByUsername.getCode() != 200) {
+        if (!authUserByUsername.isSuccess()) {
             return null;
         }
 
         return authUserByUsername.getData();
     }
 
-    @Override
-    public Result<String> refreshToken(String token) {
-        String subject = securityUtils.getCurrentUsername();
-        if (!jwtUtil.validateToken(token,subject)) {
-            return Result.error(ResultCode.DATA_VALIDATION_FAILED);
-        }
-
-        String username = jwtUtil.getUsernameFromToken(token);
-        UserInfoDTO user = getByUsername(username);
-        if (user == null || user.getStatus() == 0) {
-            return Result.error(ResultCode.DATA_NOT_FOUND);
-        }
-
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("userId", user.getId());
-        claims.put("username", user.getUsername());
-//        claims.put("roleId", user.getRoleId());
-
-        String newToken = jwtUtil.generateToken(username, claims);
-        return Result.success(newToken);
-    }
-
-    @Override
-    public Result<Void> logout(String token) {
-        // 在实际应用中，可以将token加入黑名单
-        // 这里简单返回成功
-        return Result.success();
-    }
+//    @Override
+//    public String refreshToken(String token) {
+//
+//        if (!jwtOperator.validateToken(token, subject)) {
+//            throw new BusinessException(ResultCode.DATA_VALIDATION_FAILED);
+//        }
+//
+//        String username = jwtOperator.getUsernameFromToken(token);
+//        UserInfoDTO user = getByUsername(username);
+//        if (user == null || user.getStatus() == 0) {
+//            throw new BusinessException(ResultCode.DATA_NOT_FOUND);
+//        }
+//
+//        Map<String, Object> claims = new HashMap<>();
+//        claims.put("userId", user.getId());
+//        claims.put("username", user.getUsername());
+////        claims.put("roleId", user.getRoleId());
+//
+//        return jwtOperator.generateToken(username, claims);
+//    }
+//
+//    @Override
+//    public void logout(String token) {
+//        // 在实际应用中，可以将token加入黑名单
+//        // 这里简单返回成功
+//        log.info("logout:" + token);
+//        String userKeyFromToken = jwtOperator.getUserKeyFromToken(token);
+//        log.info("userKeyFromToken:" + userKeyFromToken);
+//        redisTemplate.delete(SecurityConstants.USER_KEY + ":" + userKeyFromToken);
+//    }
 }

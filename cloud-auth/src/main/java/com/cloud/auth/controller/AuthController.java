@@ -3,7 +3,8 @@ package com.cloud.auth.controller;
 import com.cloud.api.system.dto.UserCreateDTO;
 import com.cloud.api.system.dto.UserInfoDTO;
 import com.cloud.auth.service.AuthUserService;
-import com.cloud.common.result.Result;
+import com.cloud.auth.vo.LoginResultVO;
+import com.cloud.common.web.result.Result;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -29,34 +30,36 @@ public class AuthController {
 
     @PostMapping("/login")
     @Operation(summary = "用户登录", description = "用户登录接口")
-    public Result<String> login(
+    public Result<LoginResultVO> login(
             @Parameter(description = "用户名") @RequestParam("username") @NotBlank(message = "用户名不能为空") String username,
             @Parameter(description = "密码") @RequestParam("password") @NotBlank(message = "密码不能为空") String password) {
-        return authUserService.login(username, password);
+        return Result.success(authUserService.login(username, password));
     }
 
     @PostMapping("/register")
     @Operation(summary = "用户注册", description = "用户注册接口")
-    public Result<String> register(@RequestBody @Valid UserCreateDTO authUser) {
-        return authUserService.register(authUser);
+    public Result<Void> register(@RequestBody @Valid UserCreateDTO authUser) {
+        authUserService.register(authUser);
+        return Result.success();
     }
 
-    @PostMapping("/refresh")
-    @Operation(summary = "刷新令牌", description = "刷新JWT令牌")
-    public Result<String> refreshToken(
-            @Parameter(description = "旧令牌") @RequestHeader("Authorization") String token) {
-        // 移除Bearer前缀
-        String jwtToken = extractToken(token);
-        return authUserService.refreshToken(jwtToken);
-    }
-
-    @PostMapping("/logout")
-    @Operation(summary = "退出登录", description = "用户退出登录")
-    public Result<Void> logout(
-            @Parameter(description = "令牌") @RequestHeader("Authorization") String token) {
-        String jwtToken = extractToken(token);
-        return authUserService.logout(jwtToken);
-    }
+//    @PostMapping("/refresh")
+//    @Operation(summary = "刷新令牌", description = "刷新JWT令牌")
+//    public Result<String> refreshToken(
+//            @Parameter(description = "旧令牌") @RequestHeader("Authorization") String token) {
+//        // 移除Bearer前缀
+//        String jwtToken = extractToken(token);
+//        return Result.success(authUserService.refreshToken(jwtToken));
+//    }
+//
+//    @PostMapping("/logout")
+//    @Operation(summary = "退出登录", description = "用户退出登录")
+//    public Result<Void> logout(
+//            @Parameter(description = "令牌") @RequestHeader("Authorization") String token) {
+//        String jwtToken = extractToken(token);
+//        authUserService.logout(jwtToken);
+//        return Result.success();
+//    }
 
     @GetMapping("/info")
     @Operation(summary = "获取用户信息", description = "根据用户名获取用户信息")
@@ -71,15 +74,4 @@ public class AuthController {
         return Result.error("用户不存在");
     }
     
-    /**
-     * 从Authorization头中提取JWT令牌
-     * @param authorizationHeader Authorization头
-     * @return JWT令牌
-     */
-    private String extractToken(String authorizationHeader) {
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            return authorizationHeader.substring(7);
-        }
-        return authorizationHeader;
-    }
 }

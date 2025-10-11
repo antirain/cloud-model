@@ -5,7 +5,9 @@ spring:
   application:
     name: cloud-gateway
   config:
-    import: optional:nacos:cloud-gateway.yaml
+    import:
+      - nacos:common-jwt.yaml
+      - nacos:cloud-gateway.yaml
   cloud:
     nacos:
       discovery:
@@ -18,12 +20,3 @@ spring:
         group: DEFAULT_GROUP
         file-extension: yaml
         refresh-enabled: true
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-  endpoint:
-    health:
-      show-details: always

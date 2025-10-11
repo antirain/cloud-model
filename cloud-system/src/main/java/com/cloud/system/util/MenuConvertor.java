@@ -1,7 +1,7 @@
 package com.cloud.system.util;
 
-import com.cloud.system.entity.Menu;
-import com.cloud.system.dto.MenuTree;
+import com.cloud.system.vo.MenuTree;
+import com.cloud.system.entity.SysMenu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,17 +19,17 @@ public class MenuConvertor {
      * @param menuList 菜单列表
      * @return 树形菜单列表
      */
-    public static List<MenuTree> toTree(List<Menu> menuList) {
+    public static List<MenuTree> toTree(List<SysMenu> menuList) {
         if (menuList == null || menuList.isEmpty()) {
             return new ArrayList<>();
         }
 
         // 按 parentId 分组
-        Map<Long, List<Menu>> menuGroup = menuList.stream()
-                .collect(Collectors.groupingBy(Menu::getParentId));
+        Map<Long, List<SysMenu>> menuGroup = menuList.stream()
+                .collect(Collectors.groupingBy(SysMenu::getParentId));
 
         // 获取根节点（parentId 为 0 或 null 的菜单）
-        List<Menu> rootMenus = menuGroup.getOrDefault(0L, new ArrayList<>());
+        List<SysMenu> rootMenus = menuGroup.getOrDefault(0L, new ArrayList<>());
 
         // 构建树形结构
         return rootMenus.stream()
@@ -44,7 +44,7 @@ public class MenuConvertor {
      * @param menuGroup 菜单分组
      * @return 菜单树节点
      */
-    private static MenuTree buildTree(Menu menu, Map<Long, List<Menu>> menuGroup) {
+    private static MenuTree buildTree(SysMenu menu, Map<Long, List<SysMenu>> menuGroup) {
         MenuTree menuTree = new MenuTree();
         menuTree.setId(menu.getId());
         menuTree.setMenuName(menu.getMenuName());
@@ -58,7 +58,7 @@ public class MenuConvertor {
         menuTree.setParentId(menu.getParentId());
 
         // 递归处理子菜单
-        List<Menu> children = menuGroup.getOrDefault(menu.getId(), new ArrayList<>());
+        List<SysMenu> children = menuGroup.getOrDefault(menu.getId(), new ArrayList<>());
         if (!children.isEmpty()) {
             menuTree.setChildren(
                     children.stream()

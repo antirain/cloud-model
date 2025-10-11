@@ -4,13 +4,9 @@ import com.cloud.api.system.client.fallback.SystemUserClientFallbackFactory;
 import com.cloud.api.system.dto.UserCreateDTO;
 import com.cloud.api.system.dto.UserInfoDTO;
 import com.cloud.api.system.dto.UserLoginDTO;
-import com.cloud.common.result.Result;
-import feign.Headers;
-import feign.Param;
+import com.cloud.common.web.result.Result;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * 用户服务Feign客户端接口
@@ -25,7 +21,7 @@ public interface SystemUserClient {
      * @param username 用户名
      * @return 用户认证信息
      */
-    @GetMapping("/user/info/{username}")
+    @GetMapping("/sys-user/info/{username}")
     Result<UserInfoDTO> getAuthUserByUsername(@PathVariable("username") String username);
 
 
@@ -35,9 +31,9 @@ public interface SystemUserClient {
      * @param userCreateDTO 用户创建信息
      * @return 用户信息
      */
-    @PostMapping("/user")
+    @PostMapping("/sys-user")
     Result<Long> createUser(@RequestBody UserCreateDTO userCreateDTO);
 
-    @GetMapping("/user/load-by-username")
+    @GetMapping("/sys-user/load-by-username")
     Result<UserLoginDTO> loadUserByUsername(@RequestParam("username") String username);
 }

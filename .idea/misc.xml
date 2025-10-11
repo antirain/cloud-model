@@ -12,6 +12,7 @@
       <set>
         <option value="$PROJECT_DIR$/cloud-api/cloud-api-core/pom.xml" />
         <option value="$PROJECT_DIR$/cloud-common/cloud-common-model/pom.xml" />
+        <option value="$PROJECT_DIR$/cloud-common/cloud-common-security-core/pom.xml" />
       </set>
     </option>
   </component>

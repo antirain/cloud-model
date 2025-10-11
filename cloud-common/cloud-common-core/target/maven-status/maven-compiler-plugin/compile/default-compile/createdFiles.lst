@@ -1,9 +1,2 @@
-com\cloud\common\advice\SensitiveResponseBodyAdvice.class
-com\cloud\common\exception\BusinessException.class
-com\cloud\common\enums\SensitiveType.class
-com\cloud\common\result\Result.class
-com\cloud\common\exception\GlobalExceptionHandler.class
-com\cloud\common\handler\SensitiveHandler$1.class
-com\cloud\common\annotation\Sensitive.class
-com\cloud\common\handler\SensitiveHandler.class
-com\cloud\common\result\ResultCode.class
+com\cloud\common\core\enums\ResultCode.class
+com\cloud\common\core\exception\BusinessException.class

@@ -1,2 +1,3 @@
-com\cloud\common\config\MybatisPlusConfig.class
-com\cloud\common\entity\BaseEntity.class
+com\cloud\common\datasource\MpGenerator.class
+com\cloud\common\datasource\config\MybatisPlusConfig.class
+com\cloud\common\datasource\entity\BaseEntity.class

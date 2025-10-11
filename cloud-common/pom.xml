@@ -21,9 +21,8 @@
         <module>cloud-common-core</module>
         <module>cloud-common-datasource</module>
         <module>cloud-common-security</module>
-        <module>cloud-common-security-core</module>
-        <module>cloud-common-security-webflux</module>
-        <module>cloud-common-security-webmvc</module>
+        <module>cloud-common-redis</module>
+        <module>cloud-common-web</module>
     </modules>
 
     <!-- 注意：该模块作为三个子模块的父POM，不包含具体业务功能 -->
